@@ -2,16 +2,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<List<Integer>> a = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
-            List<Integer> n = new ArrayList<>();
-            for(int j = 0; j < 5; j++){
-                n.add(j);
-            }
-            a.add(n);
-        }
-
-        System.out.println(flippingMatrix(a));
+        List<Integer> nums = new ArrayList<>(Collections.nCopies(10, 0));
+        plusMinus(nums);
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -89,5 +81,28 @@ public class Main {
             }
         }
         return s;
+    }
+
+    /*
+     * Complete the 'plusMinus' function below.
+     *
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+
+    public static void plusMinus(List<Integer> arr) {
+        // Write your code here
+        int pos = 0;
+        int neg = 0;
+        int zero = 0;
+        int l = arr.size();
+        for (int num : arr) {
+            if (num == 0) zero += 1;
+            if (num > 0) pos += 1;
+            if (num < 0) neg += 1;
+        }
+
+        System.out.printf("%.6f\n", (float) pos/l);
+        System.out.printf("%.6f\n", (float) neg/l);
+        System.out.printf("%.6f\n", (float) zero/l);
     }
 }
