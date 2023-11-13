@@ -32,27 +32,6 @@ public class Main {
         return res;
     }
 
-    public static int diagonalDifference(List<List<Integer>> arr) {
-        // Write your code here
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        int h = arr.get(0).size()-1;
-        int sum1 = 0;
-        int sum2 = 0;
-
-        while(i < arr.size()) {
-            sum1 += arr.get(i).get(j);
-            sum2 += arr.get(k).get(h);
-            i += 1;
-            j += 1;
-            k += 1;
-            h -= 1;
-        }
-
-        return Math.abs(sum1 - sum2);
-    }
-
     /*
      * Complete the 'countingSort' function below.
      *
@@ -142,10 +121,24 @@ public class Main {
 
         List<Integer> res = new ArrayList<>();
         for(String str : queries) {
-            if(queryCount.containsKey(str)) res.add(queryCount.get(str));
-            else res.add(0);
+            res.add(queryCount.getOrDefault(str, 0));
         }
 
         return res;
+    }
+
+    public static int diagonalDifference1(List<List<Integer>> arr) {
+        // Write your code here
+        int sum1 = 0;
+        int sum2 = 0;
+        int i = 0;
+        int j = arr.size()-1;
+        while(i < arr.size()){
+            sum1 += arr.get(i).get(i);
+            sum2 += arr.get(i).get(j);
+            i += 1;
+            j -= 1;
+        }
+        return Math.abs(sum1 - sum2);
     }
 }
