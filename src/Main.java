@@ -131,4 +131,21 @@ public class Main {
 
         return twentyHour.format(twelveHour.parse(s));
     }
+
+    public static List<Integer> matchingStrings(List<String> strings, List<String> queries) {
+        // Write your code here
+        HashMap<String, Integer> queryCount = new HashMap<>();
+        for(String str : strings){
+            if(queryCount.containsKey(str)) queryCount.put(str, queryCount.get(str)+1);
+            else queryCount.put(str, 1);
+        }
+
+        List<Integer> res = new ArrayList<>();
+        for(String str : queries) {
+            if(queryCount.containsKey(str)) res.add(queryCount.get(str));
+            else res.add(0);
+        }
+
+        return res;
+    }
 }
