@@ -127,7 +127,7 @@ public class Main {
         return res;
     }
 
-    public static int diagonalDifference1(List<List<Integer>> arr) {
+    public static int diagonalDifference(List<List<Integer>> arr) {
         // Write your code here
         int sum1 = 0;
         int sum2 = 0;
