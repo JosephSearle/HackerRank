@@ -7,20 +7,13 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> nums = new ArrayList<>();
-        nums.add(1);
-        nums.add(2);
-        nums.add(3);
-        nums.add(4);
-        nums.add(5);
-        miniMaxSum(nums);
+        System.out.println(pangrams("We promptly judged antique ivory buckles for the next prize"));
     }
 
     public static int lonelyinteger(List<Integer> a) {
         // Write your code here
         HashMap<Integer, Integer> numCount = new HashMap<>();
         int res = 0;
-
         for(int n : a) {
            if(numCount.containsKey(n)) numCount.put(n, numCount.get(n)+1);
            else numCount.put(n, 1);
@@ -45,16 +38,6 @@ public class Main {
             result.set(num, result.get(num)+1);
         });
         return result;
-
-//        for(int i = 0; i < res.length; i++) {
-//            if(res[i] == 0) continue;
-//            while(res[i] > 0) {
-//                result.add(i);
-//                res[i] -= 1;
-//            }
-//        }
-//
-//        return result;
     }
 
 
@@ -140,5 +123,15 @@ public class Main {
             j -= 1;
         }
         return Math.abs(sum1 - sum2);
+    }
+
+    public static String pangrams(String s) {
+        // Write your code here
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        s = s.toLowerCase();
+        for(char c : alphabet) {
+            if(!(s.contains(Character.toString(c)))) return "not pangram";
+        }
+        return "pangram";
     }
 }
