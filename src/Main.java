@@ -2,8 +2,13 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> nums = new ArrayList<>(Collections.nCopies(10, 0));
-        plusMinus(nums);
+        List<Integer> nums = new ArrayList<>();
+        nums.add(1);
+        nums.add(2);
+        nums.add(3);
+        nums.add(4);
+        nums.add(5);
+        miniMaxSum(nums);
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -104,5 +109,13 @@ public class Main {
         System.out.printf("%.6f\n", (float) pos/l);
         System.out.printf("%.6f\n", (float) neg/l);
         System.out.printf("%.6f\n", (float) zero/l);
+    }
+
+    public static void miniMaxSum(List<Integer> arr) {
+        // Write your code here
+        Collections.sort(arr);
+        long minSum = arr.subList(0, 4).stream().mapToLong(Integer::longValue).sum();
+        long maxSum = arr.subList(1,  arr.size()).stream().mapToLong(Integer::longValue).sum();
+        System.out.println(minSum + " " + maxSum);
     }
 }
