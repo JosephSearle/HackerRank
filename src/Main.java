@@ -2,24 +2,14 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<List<Integer>> nums = new ArrayList<>();
-        List<Integer> n = new ArrayList<>();
-        n.add(1);
-        n.add(2);
-        n.add(3);
-        List<Integer> m = new ArrayList<>();
-        m.add(4);
-        m.add(5);
-        m.add(6);
-        List<Integer> p = new ArrayList<>();
-        p.add(9);
-        p.add(8);
-        p.add(9);
-        nums.add(n);
-        nums.add(m);
-        nums.add(p);
-
-        System.out.println(diagonalDifference(nums));
+        List<Integer> a = new ArrayList<>();
+        for(int i = 0; i < 50; i++) {
+            a.add(i);
+        }
+        for(int i = 0; i < 50; i++) {
+            a.add(i);
+        }
+        System.out.println(countingSort(a));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -58,4 +48,30 @@ public class Main {
 
         return Math.abs(sum1 - sum2);
     }
+
+    /*
+     * Complete the 'countingSort' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+    public static List<Integer> countingSort(List<Integer> arr) {
+        // Write your code here
+        List<Integer> result = new ArrayList<>(Collections.nCopies(100,0));
+        arr.forEach(num -> {
+            result.set(num, result.get(num)+1);
+        });
+        return result;
+
+//        for(int i = 0; i < res.length; i++) {
+//            if(res[i] == 0) continue;
+//            while(res[i] > 0) {
+//                result.add(i);
+//                res[i] -= 1;
+//            }
+//        }
+//
+//        return result;
+    }
+
 }
