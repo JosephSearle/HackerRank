@@ -1,8 +1,5 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
@@ -133,5 +130,16 @@ public class Main {
             if(!(s.contains(Character.toString(c)))) return "not pangram";
         }
         return "pangram";
+    }
+
+    public static String twoArrays(int k, List<Integer> A, List<Integer> B) {
+        // Write your code here
+        Collections.sort(A);
+        Collections.sort(B);
+        Collections.reverse(B);
+        for(int i = 0; i < A.size(); i++) {
+            if((A.get(i) + B.get(i)) < k) return "NO";
+        }
+        return "YES";
     }
 }
