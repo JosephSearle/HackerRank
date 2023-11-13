@@ -4,7 +4,10 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(pangrams("We promptly judged antique ivory buckles for the next prize"));
+        List<Integer> nums = new ArrayList<>();
+        nums.add(1);
+        nums.add(4);
+        birthday(nums, 4,1);
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -141,5 +144,15 @@ public class Main {
             if((A.get(i) + B.get(i)) < k) return "NO";
         }
         return "YES";
+    }
+
+    public static int birthday(List<Integer> s, int d, int m) {
+        // Write your code here
+        int count = 0;
+        for(int i = 0; i < s.size()-m+1; i++) {
+            int num = s.subList(i, i+m).stream().mapToInt(Integer::intValue).sum();
+            if(num == d) count += 1;
+        }
+        return count;
     }
 }
