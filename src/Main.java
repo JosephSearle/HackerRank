@@ -2,14 +2,16 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> a = new ArrayList<>();
-        for(int i = 0; i < 50; i++) {
-            a.add(i);
+        List<List<Integer>> a = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            List<Integer> n = new ArrayList<>();
+            for(int j = 0; j < 5; j++){
+                n.add(j);
+            }
+            a.add(n);
         }
-        for(int i = 0; i < 50; i++) {
-            a.add(i);
-        }
-        System.out.println(countingSort(a));
+
+        System.out.println(flippingMatrix(a));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -74,4 +76,18 @@ public class Main {
 //        return result;
     }
 
+
+    public static int flippingMatrix(List<List<Integer>> matrix) {
+        // Write your code here
+        int l = matrix.size();
+        int s = 0;
+        for (int i = 0; i < l/2; i++) {
+            for (int j = 0; j < l/2; j++) {
+                int m1 = Math.max(matrix.get(i).get(j), matrix.get(i).get(l-j-1));
+                int m2 = Math.max(matrix.get(l-i-1).get(j), matrix.get(l-i-1).get(l-j-1));
+                s += Math.max(m1, m2);
+            }
+        }
+        return s;
+    }
 }
