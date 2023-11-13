@@ -1,3 +1,8 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
@@ -117,5 +122,13 @@ public class Main {
         long minSum = arr.subList(0, 4).stream().mapToLong(Integer::longValue).sum();
         long maxSum = arr.subList(1,  arr.size()).stream().mapToLong(Integer::longValue).sum();
         System.out.println(minSum + " " + maxSum);
+    }
+
+    public static String timeConversion(String s) throws ParseException {
+        // Write your code here
+        SimpleDateFormat twelveHour = new SimpleDateFormat("hh:mm:ssa");
+        SimpleDateFormat twentyHour = new SimpleDateFormat("HH:mm:ss");
+
+        return twentyHour.format(twelveHour.parse(s));
     }
 }
