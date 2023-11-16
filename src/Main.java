@@ -4,10 +4,11 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> nums = new ArrayList<>();
-        nums.add(1);
-        nums.add(4);
-        birthday(nums, 4,1);
+        List<Integer> q = new ArrayList<>();
+        q.add(3);
+        q.add(-7);
+        q.add(0);
+        System.out.println(minimumAbsoluteDifference(q));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -154,5 +155,92 @@ public class Main {
             if(num == d) count += 1;
         }
         return count;
+    }
+
+    public static String hackerrankInString(String s) {
+        List<Character> lc = new ArrayList<Character>();
+        String h = "hackerrank";
+
+        for(int i=0; i<h.length(); i++)
+            lc.add(h.charAt(i));
+
+        for(int i=0; i<s.length(); i++){
+            if(lc.get(0) == s.charAt(i))
+                lc.remove(0);
+
+            if(lc.isEmpty())
+                return "YES";
+
+        }
+
+        return "NO";
+    }
+
+    public static List<String> weightedUniformStrings(String s, List<Integer> queries) {
+        List<String> results = new ArrayList<>();
+        List<Integer> counts = new ArrayList<>();
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        int count = 0;
+        char prev = s.charAt(0);
+        for(char c : s.toCharArray()) {
+            int val = alphabet.indexOf(c)+1;
+            if (c == prev) {
+                count += val;
+            }
+            else count = val;
+            prev = c;
+            counts.add(count);
+        }
+
+        for(int q : queries) {
+            if(counts.contains(q)) results.add("Yes");
+            else results.add("No");
+        }
+
+        return results;
+    }
+
+    /**
+     * Calculate the minimum amount of bribes needed to be taken to reach the state of the array being passed in
+     * A person cannot jump more than 2 spaces in the queue.
+     *
+     * [2,1,5,3,4]    [5,2,1,3,4]       [1 2 3 4 5 6 7 8]
+     *                                  [1 2 5 3 4 6 7 8]
+     *                                  [1 2 5 3 7 4 6 8]
+     *                                  [1 2 5 3 7 8 4 6]
+     *                                  [1 2 5 3 7 8 6 4]
+     * count = 3      Too Chaotic       count = 7
+     *
+     * @param q
+     */
+    public static void minimumBribes(List<Integer> q) {
+        // Write your code here
+        int count = 0;
+        for(int i = q.size()-1; i > 0; i--) {
+            int jumps = q.get(i) - (i+1);
+            if(jumps > 2){
+                System.out.println("Too chaotic");
+                return;
+            }
+            for(int j = Math.max(0, q.get(i)-2); j <= i; j++) {
+                if (q.get(j) > q.get(i)) count += 1;
+            }
+        }
+        System.out.println(count);
+    }
+
+    public static int minimumAbsoluteDifference(List<Integer> arr) {
+        // Write your code here
+        int min = Integer.MAX_VALUE;
+        int l = arr.size();
+        arr.sort(null);
+        for(int i = 1; i < l; i++) {
+            int prev = arr.get(i-1);
+            int curr = arr.get(i);
+            int diff = Math.abs(prev - curr);
+
+            if(diff < min) min = diff;
+        }
+        return min;
     }
 }
