@@ -1,36 +1,14 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        List<List<Integer>> contests = new ArrayList<>();
-        List<Integer> c1 = new ArrayList<>();
-        c1.add(5);
-        c1.add(1);
-        List<Integer> c2 = new ArrayList<>();
-        c2.add(2);
-        c2.add(1);
-        List<Integer> c3 = new ArrayList<>();
-        c3.add(1);
-        c3.add(1);
-        List<Integer> c4 = new ArrayList<>();
-        c4.add(8);
-        c4.add(1);
-        List<Integer> c5 = new ArrayList<>();
-        c5.add(10);
-        c5.add(0);
-        List<Integer> c6 = new ArrayList<>();
-        c6.add(5);
-        c6.add(0);
-        contests.add(c1);
-        contests.add(c2);
-        contests.add(c3);
-        contests.add(c4);
-        contests.add(c5);
-        contests.add(c6);
+    public static void main(String[] args) throws IOException {
+        TestFileReader reader = new TestFileReader();
+        List<Integer> test = reader.makeListReadingLineByLine();
 
-        System.out.println(luckBalance(3, contests));
     }
 
     public static int lonelyinteger(List<Integer> a) {
