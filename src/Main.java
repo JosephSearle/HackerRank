@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         TestFileReader reader = new TestFileReader();
         List<Integer> test = reader.makeListReadingLineByLine();
-
+        System.out.println(maxMin(3, test));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -264,5 +264,20 @@ public class Main {
         return balance - luckLost;
     }
 
+    public static int maxMin(int k, List<Integer> arr) {
+        // Write your code here
+        int minFairness = Integer.MAX_VALUE;
+        int arrSize = arr.size();
+        arr.sort(null);
 
+        for(int i = 0; i <= arrSize - k; ++i) {
+            List<Integer> nums = arr.subList(i, i + k);
+            int value = nums.get(k - 1) - nums.get(0);
+            if (value < minFairness) {
+                minFairness = value;
+            }
+        }
+
+        return minFairness;
+    }
 }
