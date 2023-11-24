@@ -4,11 +4,33 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> q = new ArrayList<>();
-        q.add(3);
-        q.add(-7);
-        q.add(0);
-        System.out.println(minimumAbsoluteDifference(q));
+        List<List<Integer>> contests = new ArrayList<>();
+        List<Integer> c1 = new ArrayList<>();
+        c1.add(5);
+        c1.add(1);
+        List<Integer> c2 = new ArrayList<>();
+        c2.add(2);
+        c2.add(1);
+        List<Integer> c3 = new ArrayList<>();
+        c3.add(1);
+        c3.add(1);
+        List<Integer> c4 = new ArrayList<>();
+        c4.add(8);
+        c4.add(1);
+        List<Integer> c5 = new ArrayList<>();
+        c5.add(10);
+        c5.add(0);
+        List<Integer> c6 = new ArrayList<>();
+        c6.add(5);
+        c6.add(0);
+        contests.add(c1);
+        contests.add(c2);
+        contests.add(c3);
+        contests.add(c4);
+        contests.add(c5);
+        contests.add(c6);
+
+        System.out.println(luckBalance(3, contests));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -243,4 +265,26 @@ public class Main {
         }
         return min;
     }
+
+    public static int luckBalance(int k, List<List<Integer>> contests) {
+        // Write your code here
+        List<Integer> importantScores = new ArrayList<>();
+        int balance = 0;
+        int luckLost = 0;
+        for(List<Integer> contest : contests) {
+            if(contest.get(1) == 1) importantScores.add(contest.get(0));
+            else balance += contest.get(0);
+        }
+        importantScores.sort(null);
+        for(int i = importantScores.size()-1; i >= 0; i--) {
+            if(k > 0){
+                balance += importantScores.get(i);
+                k--;
+            }
+            else luckLost += importantScores.get(i);
+        }
+        return balance - luckLost;
+    }
+
+
 }
