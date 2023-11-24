@@ -6,9 +6,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        TestFileReader reader = new TestFileReader();
-        List<Integer> test = reader.makeListReadingLineByLine();
-        System.out.println(maxMin(3, test));
+        System.out.println(sherlockAndAnagrams("kkkk"));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -279,5 +277,49 @@ public class Main {
         }
 
         return minFairness;
+    }
+
+    public static List<Integer> jimOrders(List<List<Integer>> orders) {
+        // Write your code here
+        HashMap<Integer, Integer> orderPos = new HashMap<>();
+
+        for(int i = 0; i < orders.size(); i++) {
+            int order = orders.get(i).get(0);
+            int time = orders.get(i).get(1);
+            int value = order+ time;
+            orderPos.put(value, orders.get(0).indexOf(order)+1);
+        }
+
+        List<Integer> result = new ArrayList<>(orderPos.keySet());
+        Collections.sort(result);
+
+        for(int i = 0; i < result.size(); i++) result.set(i, orderPos.get(result.get(i)));
+        return result;
+    }
+
+    public static int sherlockAndAnagrams(String s) {
+        // Write your code here
+        HashMap<String, Integer> anagrammaticCount = new HashMap<>();
+        List<String> subStrings = new ArrayList<>();
+        int res = 0;
+
+        // Find all the substrings in the list.
+        for(int i = 0; i < s.length(); i++) {
+            for(int j = i+1; j < s.length()+1; j++) {
+                String subString = s.substring(i, j);
+                char[] sort = subString.toCharArray();
+                Arrays.sort(sort);
+                String sortedSubString = new String(sort);
+                subStrings.add(sortedSubString);
+            }
+        }
+
+        for(int i = 0; i < subStrings.size(); i++) {
+            for(int j = i+1; j < subStrings.size(); j++) {
+                if(subStrings.get(i).equals(subStrings.get(j))) res++;
+            }
+        }
+
+        return res;
     }
 }
