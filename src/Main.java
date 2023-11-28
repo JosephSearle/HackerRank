@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,12 +5,11 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        TestFileReader reader = new TestFileReader();
-        List<Long> arr = reader.makeListReadingLineByLine();
-        System.out.println(countTriplets(arr, 3));
+        solution("ababab");
+
     }
 
-    public static int lonelyinteger(List<Integer> a) {
+    public int lonelyinteger(List<Integer> a) {
         // Write your code here
         HashMap<Integer, Integer> numCount = new HashMap<>();
         int res = 0;
@@ -353,4 +351,141 @@ public class Main {
         }
         return count;
     }
+
+    /*
+     * Complete the 'arrayManipulation' function below.
+     *
+     * The function is expected to return a LONG_INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER n
+     *  2. 2D_INTEGER_ARRAY queries
+     */
+
+    public static long arrayManipulation(int n, List<List<Integer>> queries) {
+        // Write your code here
+        List<Long> arr = new ArrayList<>(Collections.nCopies(n, (long) 0));
+
+        for(List<Integer> query : queries) {
+            int from = query.get(0)-1;
+            int to = query.get(1)-1;
+            long value = query.get(2);
+            for(int i = from; i <= to; i++) arr.set(i, arr.get(i)+value);
+        }
+
+        return Collections.max(arr);
+    }
+
+    // abccbaabccba
+    // a -> b
+    // ab -> cc
+    // abc -> cba
+    // abcc -> baab
+    // abccb -> aabcc
+    // abccba -> abccba
+
+    // abcabcabcabc
+    // a -> b
+    // ab -> ca
+    // abc -> abc -> abc -> abc
+    public static int solution(String x) {
+        int a = 0;
+        int increment = 1;
+        int b = increment;
+        int countMax = 0;
+        String subString = "";
+        String prevSubString = "";
+
+        while(b <= x.length()) {
+            subString = x.substring(a, b);
+
+
+            if(subString.equals(prevSubString) || a == 0) countMax++;
+            else {
+                increment++;
+                b = increment;
+                a = 0;
+                countMax = 0;
+                continue;
+            }
+
+            a = b;
+            b += increment;
+            prevSubString = subString;
+        }
+
+        return countMax;
+    }
+
+    public static int fib(int n) {
+        return fib(n, new HashMap<>());
+    }
+    public static int fib(int n, HashMap<Integer, Integer> memo) {
+        if (n == 0 || n == 1) return n;
+
+        if (memo.containsKey(n)) return memo.get(n);
+
+        int result = fib(n-1, memo) + fib(n-2, memo);
+        memo.put(n, result);
+        return result;
+    }
+
+    public static int trib(int n) {
+        return trib(n, new HashMap<>());
+    }
+
+    public static int trib(int n, HashMap<Integer, Integer> memo) {
+        if(n == 0 || n == 1) return 0;
+        if(n == 2) return 1;
+
+        if(memo.containsKey(n)) return memo.get(n);
+
+        int result = trib(n-1, memo) + trib(n-2, memo) + trib(n-3, memo);
+        memo.put(n, result);
+        return result;
+    }
+
+    public static boolean sumPossible(int amount, List<Integer> numbers) {
+        return sumPossible(amount, numbers, new HashMap<>());
+    }
+
+    public static boolean sumPossible(int amount, List<Integer> numbers, HashMap<Integer, Boolean> memo) {
+        if (amount == 0) return true;
+        if (amount < 0) return false;
+        if(memo.containsKey(amount)) return memo.get(amount);
+        for (int num : numbers) {
+            int subAmount = amount - num;
+            if(sumPossible(subAmount, numbers, memo)) {
+                memo.put(subAmount, true);
+                return true;
+            }
+        }
+        memo.put(amount, false);
+        return false;
+    }
+
+    public static int minChange(int amount, List<Integer> coins) {
+        return minChange(amount, coins, new HashMap<>());
+    }
+
+    public static int minChange(int amount, List<Integer> coins, HashMap<Integer, Integer> memo) {
+        if(amount == 0) return 0;
+
+        if (amount < 0) return -1;
+
+        if (memo.containsKey(amount)) return memo.get(amount);
+
+        int minCoins = -1;
+        for(int num : coins) {
+            int subAmount = amount - num;
+            int subCoins = minChange(subAmount, coins);
+            if (subCoins != -1) {
+                int numCoins = subCoins + 1;
+                if (numCoins < minCoins || minCoins == -1) minCoins = numCoins;
+            }
+        }
+
+        memo.put(amount, minCoins);
+        return minCoins;
+    }
+
 }
