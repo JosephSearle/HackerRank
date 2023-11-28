@@ -6,7 +6,9 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        System.out.println(sherlockAndAnagrams("kkkk"));
+        TestFileReader reader = new TestFileReader();
+        List<Long> arr = reader.makeListReadingLineByLine();
+        System.out.println(countTriplets(arr, 3));
     }
 
     public static int lonelyinteger(List<Integer> a) {
@@ -299,7 +301,6 @@ public class Main {
 
     public static int sherlockAndAnagrams(String s) {
         // Write your code here
-        HashMap<String, Integer> anagrammaticCount = new HashMap<>();
         List<String> subStrings = new ArrayList<>();
         int res = 0;
 
@@ -321,5 +322,35 @@ public class Main {
         }
 
         return res;
+    }
+
+    // return the number of triplet that are in geometric progression with the same ratio.
+    // Complete the countTriplets function below.
+    // [1,2,2,4] r=2
+    public static long countTriplets(List<Long> arr, long r) {
+        // order the list.
+        // iterate through the list and add elements to the HashMap with <position, number>.
+        // check if the hashmap has number/r and number*r.
+        int count = 0;
+        HashMap<Long, Integer> ratioMap = new HashMap<>();
+
+        for(int i = 0; i < arr.size(); i++) {
+            long val = arr.get(i);
+            if(ratioMap.containsKey(val)) ratioMap.put(val, ratioMap.get(val)+1);
+            else ratioMap.put(val, 1);
+        }
+
+        if(ratioMap.size() == 1)
+
+        for(Map.Entry<Long, Integer> set : ratioMap.entrySet()) {
+            long curr = set.getKey();
+            long prev = curr/r;
+            long next = curr*r;
+            if(ratioMap.containsKey(curr/r) && ratioMap.containsKey(curr*r)) {
+                int increment = set.getValue() * ratioMap.get(prev) * ratioMap.get(next);
+                count += increment;
+            }
+        }
+        return count;
     }
 }

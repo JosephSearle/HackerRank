@@ -11,11 +11,11 @@ public class TestFileReader {
         reader = new BufferedReader(new FileReader("src/test.txt"));
     }
 
-    public List<Integer> makeListReadingLineByLine() throws IOException {
-        List<Integer> res = new ArrayList<>();
+    public List<Long> makeListReadingLineByLine() throws IOException {
+        List<Long> res = new ArrayList<>();
         String line = reader.readLine();
         while (line != null) {
-            res.add(Integer.parseInt(line));
+            res.add(Long.parseLong(line));
             line = reader.readLine();
         }
         reader.close();
