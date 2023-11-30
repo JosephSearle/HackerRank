@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        solution("ababab");
 
     }
 
@@ -375,47 +374,6 @@ public class Main {
         return Collections.max(arr);
     }
 
-    // abccbaabccba
-    // a -> b
-    // ab -> cc
-    // abc -> cba
-    // abcc -> baab
-    // abccb -> aabcc
-    // abccba -> abccba
-
-    // abcabcabcabc
-    // a -> b
-    // ab -> ca
-    // abc -> abc -> abc -> abc
-    public static int solution(String x) {
-        int a = 0;
-        int increment = 1;
-        int b = increment;
-        int countMax = 0;
-        String subString = "";
-        String prevSubString = "";
-
-        while(b <= x.length()) {
-            subString = x.substring(a, b);
-
-
-            if(subString.equals(prevSubString) || a == 0) countMax++;
-            else {
-                increment++;
-                b = increment;
-                a = 0;
-                countMax = 0;
-                continue;
-            }
-
-            a = b;
-            b += increment;
-            prevSubString = subString;
-        }
-
-        return countMax;
-    }
-
     public static int fib(int n) {
         return fib(n, new HashMap<>());
     }
@@ -488,4 +446,16 @@ public class Main {
         return minCoins;
     }
 
+    static int maxSubsetSum(int[] arr) {
+        int a=arr[0];
+        int b=0;
+        for(int i=1;i<arr.length;i++)
+        {
+            int temp=a;
+            a=b+arr[i];
+            b=(int)Math.max(temp,b);
+        }
+
+        return (int)Math.max(a,b);
+    }
 }

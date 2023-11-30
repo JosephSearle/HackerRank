@@ -11,21 +11,51 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GoogleTest {
 
-    private Main main = new Main();
+    private GoogleSolutions googleSolutions = new GoogleSolutions();
 
     @ParameterizedTest
-    @MethodSource("getPossibleInputs")
-    void solution1Test(String input, int output) throws IOException {
-        int solution = main.solution(input);
+    @MethodSource("getPossibleInputsForProblem1")
+    void solution1Test(String input, int output) {
+        int solution = googleSolutions.solution1(input);
         assertEquals(output, solution);
     }
 
-    private static Stream<Arguments> getPossibleInputs() {
+    private static Stream<Arguments> getPossibleInputsForProblem1() {
         return Stream.of(
-                Arguments.of("abccbaabccba",2),
-                Arguments.of("abcabcabcabc",4),
-                Arguments.of("abccbaabccba",2),
-                Arguments.of("abcabcabcabc",4)
+                Arguments.of("abaaba", 2),
+                Arguments.of("ababab", 3),
+                Arguments.of("abbcaabbca", 2),
+                Arguments.of("aaaaaaa", 7)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("getPossibleInputsForProblem2")
+    void solution2Test(String input, int output) throws IOException {
+        int solution = googleSolutions.solution2(input);
+        assertEquals(output, solution);
+    }
+
+    private static Stream<Arguments> getPossibleInputsForProblem2() {
+        return Stream.of(
+                Arguments.of(">----<",2),
+                Arguments.of("<<><<",4),
+                Arguments.of("--->-><-><-->-",10),
+                Arguments.of("--<->-->-<<-",8)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("getPossibleInputsForProblem3")
+    void solution1Test(String input, int b, String output) throws IOException {
+        String solution = googleSolutions.solution3(input, b);
+        assertEquals(output, solution);
+    }
+
+    private static Stream<Arguments> getPossibleInputsForProblem3() {
+        return Stream.of(
+                Arguments.of("1211",10,"1"),
+                Arguments.of("210022",3,"3")
         );
     }
 }
