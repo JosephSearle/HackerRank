@@ -1,11 +1,106 @@
 import java.io.IOException;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        List<Integer> arr = List.of(
+                5, 1, 2, 3, 4, 5
+        );
+        longestSubarray(arr);
+    }
 
+
+    public static int longestSubarray(List<Integer> arr) {
+        // Write your code here
+        int largestSubArray = 0;
+
+        for (int i = 0; i < arr.size(); i++) {
+            List<Integer> subArr = new ArrayList<>();
+            for (int j = i; j < arr.size(); j++) {
+                int val = arr.get(j);
+                if (subArr.size() == 0) {
+                    subArr.add(val);
+                    continue;
+                }
+
+                if ((val+=1) == subArr.get(subArr.size()-1) || (val-=1) == subArr.get(subArr.size()-1)) {
+                    subArr.add(val);
+                } else {
+                    break;
+                }
+            }
+            if(subArr.size() > largestSubArray) largestSubArray = subArr.size();
+        }
+        return largestSubArray;
+    }
+
+    public static String gridChallenge(List<String> grid) {
+        // Write your code here
+        for(String row : grid) {
+            char[] sorted = row.toCharArray();
+            Arrays.sort(sorted);
+        }
+
+        for (int i = 0; i < grid.get(0).length(); i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < grid.size(); j++) {
+                sb.append(grid.get(j).charAt(i));
+            }
+            String sorted = sb.toString();
+            char[] sort = sorted.toCharArray();
+            Arrays.sort(sort);
+            if(!Arrays.equals(sb.toString().toCharArray(), sort)) return "NO";
+        }
+
+        return "YES";
+    }
+
+    public static String caesarCipher(String s, int k) {
+        // Write your code here
+        //char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        StringBuilder cipher = new StringBuilder();
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            boolean isUpper = false;
+            if(Character.isUpperCase(c)) {
+                c = Character.toLowerCase(c);
+                isUpper = true;
+            }
+            int pos = alphabet.indexOf(c);
+            int newPos = (pos + k) % alphabet.length();
+            char cipherChar = alphabet.charAt(newPos);
+            if(isUpper) cipherChar = Character.toUpperCase(cipherChar);
+            cipher.append(cipherChar);
+        }
+
+        return cipher.toString();
+    }
+
+    public static void findZigZagSequence(int [] a, int n){
+        Arrays.sort(a);
+        int mid = n/2;
+        int temp = a[mid];
+        a[mid] = a[n - 1];
+        a[n - 1] = temp;
+
+        int st = mid + 1;
+        int ed = n - 2;
+        while(st <= ed){
+            temp = a[st];
+            a[st] = a[ed];
+            a[ed] = temp;
+            st = st + 1;
+            ed = ed - 1;
+        }
+        for(int i = 0; i < n; i++){
+            if(i > 0) System.out.print(" ");
+            System.out.print(a[i]);
+        }
+        System.out.println();
     }
 
     public int lonelyinteger(List<Integer> a) {
@@ -457,5 +552,43 @@ public class Main {
         }
 
         return (int)Math.max(a,b);
+    }
+
+    static int minCostPath(List<List<Integer>> graph) {
+        return minCostPath(0,0,graph);
+    }
+
+    static int minCostPath(int x, int y, List<List<Integer>> graph) {
+        int graphLen = graph.size();
+        int rowLen = graph.get(0).size();
+        if (x == graphLen-1 && y == rowLen-1) return graph.get(x).get(y);
+        else if (x == graphLen-1) return graph.get(x).get(y) + minCostPath(x, y+1, graph);
+        else if (y == rowLen-1) return graph.get(x).get(y) + minCostPath(x+1, y, graph);
+        else return graph.get(x).get(y) + Math.min(minCostPath(x+1, y, graph), minCostPath(x, y+1, graph));
+    }
+
+    // 6 = 27
+    public static int fibonacciModified(int t1, int t2, int n) {
+        // Write your code here
+        int[] fibArr = new int[n+1];
+        fibArr[1] = t1;
+        fibArr[2] = t2;
+        for(int i = 3; i < fibArr.length; i++) {
+            fibArr[i] = fibArr[i-2] + (int)Math.pow(fibArr[i-1], 2);
+        }
+        return fibArr[fibArr.length-1];
+    }
+
+    public static String xor(String s, String t) {
+        StringBuilder res = new StringBuilder();
+
+        for(int i = 0; i < s.length(); i++) {
+            char sChar = s.charAt(i);
+            char tChar = t.charAt(i);
+            if(sChar == tChar) res.append('0');
+            else res.append('1');
+        }
+
+        return res.toString();
     }
 }
