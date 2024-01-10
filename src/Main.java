@@ -6,10 +6,13 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        List<Integer> arr = List.of(
-                5, 1, 2, 3, 4, 5
-        );
-        longestSubarray(arr);
+        List<Integer> arr = new ArrayList<>();
+        arr.add(1);
+        arr.add(4);
+        arr.add(5);
+        arr.add(3);
+        arr.add(2);
+        whatFlavors(arr, 4);
     }
 
 
@@ -590,5 +593,63 @@ public class Main {
         }
 
         return res.toString();
+    }
+
+    // {[]}
+    public static String isBalanced(String s) {
+        // Write your code here
+        HashMap<Character, Character> brackets = new HashMap<>();
+        brackets.put(']', '[');
+        brackets.put('}', '{');
+        brackets.put(')', '(');
+        Stack<Character> bracketQueue = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (brackets.containsKey(c)) {
+                if(bracketQueue.isEmpty()) return "NO";
+                char openBracket = bracketQueue.pop();
+                if (openBracket != brackets.get(c)) return "NO";
+            }
+            else bracketQueue.push(c);
+        }
+        if(!bracketQueue.isEmpty()) return "NO";
+        return "YES";
+    }
+
+    // [10, 20, 30, 40, 50]
+    // d = 3
+    public static int activityNotifications(List<Integer> expenditure, int d) {
+        // Write your code here
+        int count = 0;
+        for (int i = d; i < expenditure.size(); i++) {
+            int currentDay = expenditure.get(i);
+            List<Integer> trail = expenditure.subList(i-d, i);
+            Collections.sort(trail);
+            float median;
+            int mid = trail.size()/2;
+            if(trail.size() % 2 == 0) median = ((float)trail.get(mid) + (float)trail.get(mid-1)) / 2;
+            else median = trail.get(mid);
+            if(currentDay >= median*2) count+=1;
+        }
+        return count;
+    }
+
+    /**
+     * money = 4
+     * cost = [1, 4, 5, 3, 2]
+     */
+    public static void whatFlavors(List<Integer> cost, int money) {
+        // Write your code here
+        HashMap<Integer, Integer> costMap = new HashMap<>();
+        for (int i = 0; i < cost.size(); i++) {
+            int price = cost.get(i);
+            if (price < money) {
+                int remainder = money - price;
+                if (costMap.containsKey(remainder)) {
+                    System.out.println(costMap.get(remainder) + " " + i + 1);
+                    break;
+                } else costMap.put(price, i + 1);
+            }
+        }
     }
 }
